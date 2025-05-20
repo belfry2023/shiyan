@@ -1,28 +1,27 @@
+;ex0411
 include io32.inc
-.data
-    msg1 byte ' Please input a character: ' , 0
-    msg2 byte ' The ASCII code of the charater you entered is: ' , 0
-    msg3 byte ' The code with even parity is: ' , 0
-.code
+.data 
+; 数据段
+inmsg  byte ' Input number(0~9) : ' , 0
+ermsg  byte 0dh, 0ah, ' Error! Input again: ' , 0
+ ; 代码段
+.code 
 start:
-    mov eax, offset msg1
+    mov eax, offset inmsg  ; 提示输入数字
     call dispmsg
-    call readc
+again:  
+    call readc  ; 等待按键
+    cmp al,'0'  ; 数字 < 0？
+    jb erdisp
+    cmp al,'9'  ; 数字 > 9？
+    ja erdisp
     call dispcrlf
-    mov ebx, eax
-    mov eax, offset msg2
+    call dispc
+    jmp done
+erdisp:  
+    mov eax, offset ermsg
     call dispmsg
-    mov eax, ebx
-    call dispbb
-    call dispcrlf
-    and al, 7fh
-    jp next
-    or al, 80h
-next:  
-    mov ebx, eax
-    mov eax, offset msg3
-    call dispmsg
-    mov eax, ebx
-    call dispbb
-exit 0
+    jmp again
+done:
+
 end start
