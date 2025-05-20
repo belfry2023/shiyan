@@ -1,0 +1,140 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    05/20/25 00:09:51
+ex0413.asm						     Page 1 - 1
+
+
+				; 文件名: d7dd4bb8837a04a5fba77aa5d7ee15c.asm
+				; 功能: 统计字符串中的空格数量并显示结果
+
+				include io32.inc        ; 包含输入输出宏库
+			      C .nolist
+			      C .list
+			      C 
+
+ 00000000			.data
+ 00000000 4C 65 74 20 75	    string byte 'Let us have a try  ! ', 0dh, 0ah, 0  ; 定义待处理的字符串（含回车换行和结束符）
+	   73 20 68 61 76
+	   65 20 61 20 74
+	   72 79 20 20 21
+	   20 0D 0A 00
+
+ 00000000			.code
+ 00000000			start:
+ 00000000  33 DB		    xor ebx, ebx        ; 清零 ebx（用作字符索引）
+ 00000002  33 F6		    xor esi, esi        ; 清零 esi（用于统计空格数量）
+ 00000004  B8 00000000 R	    mov eax, offset string
+ 00000009  E8 00000000 E	    call dispmsg        ; 调用宏显示字符串
+
+ 0000000E			outlp:
+ 0000000E  8A 83 00000000 R	    mov al, string[ebx] ; 读取当前字符到 al
+ 00000014  3C 00		    cmp al, 0           ; 检查是否到达字符串结尾
+ 00000016  74 0B		    jz done             ; 若为结尾则跳转到 done
+
+ 00000018			again:
+ 00000018  3C 20		    cmp al, ' '         ; 检查当前字符是否为空格
+ 0000001A  75 04		    jnz next            ; 若非空格则跳转到 next
+ 0000001C  46			    inc esi             ; 空格计数器加 1
+
+ 0000001D			inlp:
+ 0000001D  43			    inc ebx             ; 索引递增
+ 0000001E  EB EE		    jmp outlp           ; 跳回循环继续处理
+
+ 00000020			next:
+ 00000020  43			    inc ebx             ; 索引递增
+ 00000021  EB EB		    jmp outlp           ; 跳回循环继续处理
+
+ 00000023			done:
+ 00000023  8B C6		    mov eax, esi        ; 将空格数量存入 eax
+ 00000025  E8 00000000 E	    call dispuid        ; 调用宏显示统计结果
+ 0000002A
+				end start
+Microsoft (R) Macro Assembler Version 6.15.8803		    05/20/25 00:09:51
+ex0413.asm						     Symbols 2 - 1
+
+
+
+
+Macros:
+
+                N a m e                 Type
+
+exit . . . . . . . . . . . . . .	Proc
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000018 Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000002A Para	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00001 . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000002A Private STDCALL
+  outlp  . . . . . . . . . . . .	L Near	 0000000E _TEXT	
+  again  . . . . . . . . . . . .	L Near	 00000018 _TEXT	
+  inlp . . . . . . . . . . . . .	L Near	 0000001D _TEXT	
+  next . . . . . . . . . . . . .	L Near	 00000020 _TEXT	
+  done . . . . . . . . . . . . .	L Near	 00000023 _TEXT	
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+again  . . . . . . . . . . . . .	L Near	 00000018 _TEXT	
+dispbb . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispbd . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispbw . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispcrlf . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispc  . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disphb . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disphd . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disphw . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispmsg  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disprb . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disprd . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disprf . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disprw . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispsib  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispsid  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispsiw  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispuib  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispuid  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispuiw  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+done . . . . . . . . . . . . . .	L Near	 00000023 _TEXT	
+inlp . . . . . . . . . . . . . .	L Near	 0000001D _TEXT	
+next . . . . . . . . . . . . . .	L Near	 00000020 _TEXT	
+outlp  . . . . . . . . . . . . .	L Near	 0000000E _TEXT	
+readbb . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readbd . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readbw . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readc  . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readhb . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readhd . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readhw . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readmsg  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readsib  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readsid  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readsiw  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readuib  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readuid  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readuiw  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+start  . . . . . . . . . . . . .	L Near	 00000000 _TEXT	Public STDCALL
+string . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+
+	   0 Warnings
+	   0 Errors

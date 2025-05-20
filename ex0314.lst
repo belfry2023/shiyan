@@ -1,0 +1,162 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    05/19/25 22:14:28
+ex0314.asm						     Page 1 - 1
+
+
+				;eg0104
+				include io32.inc
+			      C .nolist
+			      C .list
+			      C 
+ 00000000			.data
+ 00000000 20 20 20 7C 20	    table byte '   | 0 1 2 3 4 5 6 7 8 9 A B C D E F' , 13, 10
+	   30 20 31 20 32
+	   20 33 20 34 20
+	   35 20 36 20 37
+	   20 38 20 39 20
+	   41 20 42 20 43
+	   20 44 20 45 20
+	   46 0D 0A
+ 00000026  20 2D 2D 2D 2B	          byte ' ---+-------------------------------' , 13, 10
+	   2D 2D 2D 2D 2D
+	   2D 2D 2D 2D 2D
+	   2D 2D 2D 2D 2D
+	   2D 2D 2D 2D 2D
+	   2D 2D 2D 2D 2D
+	   2D 2D 2D 2D 2D
+	   2D 0D 0A
+ 0000004C  20 32 30 7C 20	          byte ' 20| ' , 20h, 20h, 21h, 20h, 22h, 20h, 23h, 20h, 24h, 20h, 25h, 20h, 26h, 20h, 27h, 20h, 28h, 20h, 29h, 20h
+	   20 20 21 20 22
+	   20 23 20 24 20
+	   25 20 26 20 27
+	   20 28 20 29 20
+ 00000065  2A 20 2B 20 2C	          byte 2ah, 20h, 2bh, 20h, 2ch, 20h, 2dh, 20h, 2eh, 20h, 2fh, 20h, 13, 10
+	   20 2D 20 2E 20
+	   2F 20 0D 0A
+ 00000073  20 33 30 7C 20	          byte  ' 30| ' , 30h, 20h, 31h, 20h, 32h, 20h, 33h, 20h, 34h, 20h, 35h, 20h, 36h, 20h, 37h, 20h, 38h, 20h, 39h, 20h
+	   30 20 31 20 32
+	   20 33 20 34 20
+	   35 20 36 20 37
+	   20 38 20 39 20
+ 0000008C  3A 20 3B 20 3C	          byte 3ah, 20h, 3bh, 20h, 3ch, 20h, 3dh, 20h, 3eh, 20h, 3fh, 20h, 13, 10
+	   20 3D 20 3E 20
+	   3F 20 0D 0A
+ 0000009A  20 34 30 7C 20	          byte  ' 40| ' , 40h, 20h, 41h, 20h, 42h, 20h, 43h, 20h, 44h, 20h, 45h, 20h, 46h, 20h, 47h, 20h, 48h, 20h, 49h, 20h
+	   40 20 41 20 42
+	   20 43 20 44 20
+	   45 20 46 20 47
+	   20 48 20 49 20
+ 000000B3  4A 20 4B 20 4C	          byte 4ah, 20h, 4bh, 20h, 4ch, 20h, 4dh, 20h, 4eh, 20h, 4fh, 20h, 13, 10
+	   20 4D 20 4E 20
+	   4F 20 0D 0A
+ 000000C1  20 35 30 7C 20	          byte  ' 50| ' , 50h, 20h, 51h, 20h, 52h, 20h, 53h, 20h, 54h, 20h, 55h, 20h, 56h, 20h, 57h, 20h, 58h, 20h, 59h, 20h
+	   50 20 51 20 52
+	   20 53 20 54 20
+	   55 20 56 20 57
+	   20 58 20 59 20
+ 000000DA  5A 20 5B 20 5C	          byte 5ah, 20h, 5bh, 20h, 5ch, 20h, 5dh, 20h, 5eh, 20h, 5fh, 20h, 13, 10
+	   20 5D 20 5E 20
+	   5F 20 0D 0A
+ 000000E8  20 36 30 7C 20	          byte  ' 60| ' , 60h, 20h, 61h, 20h, 62h, 20h, 63h, 20h, 64h, 20h, 65h, 20h, 66h, 20h, 67h, 20h, 68h, 20h, 69h, 20h
+	   60 20 61 20 62
+	   20 63 20 64 20
+	   65 20 66 20 67
+	   20 68 20 69 20
+ 00000101  6A 20 6B 20 6C	          byte 6ah, 20h, 6bh, 20h, 6ch, 20h, 6dh, 20h, 6eh, 20h, 6fh, 20h, 13, 10
+	   20 6D 20 6E 20
+	   6F 20 0D 0A
+ 0000010F  20 37 30 7C 20	          byte  ' 70| ' , 70h, 20h, 71h, 20h, 72h, 20h, 73h, 20h, 74h, 20h, 75h, 20h, 76h, 20h, 77h, 20h, 78h, 20h, 79h, 20h
+	   70 20 71 20 72
+	   20 73 20 74 20
+	   75 20 76 20 77
+	   20 78 20 79 20
+ 00000128  7A 20 7B 20 7C	          byte 7ah, 20h, 7bh, 20h, 7ch, 20h, 7dh, 20h, 7eh, 20h, 7fh, 20h, 13, 10
+	   20 7D 20 7E 20
+	   7F 20 0D 0A
+ 00000136  00			          byte 0
+ 00000000			.code
+ 00000000			start:
+ 00000000  B8 00000000 R	 mov eax, offset table
+ 00000005  E8 00000000 E	 call dispmsg
+				 exit 0
+ 00000011			end start
+Microsoft (R) Macro Assembler Version 6.15.8803		    05/19/25 22:14:28
+ex0314.asm						     Symbols 2 - 1
+
+
+
+
+Macros:
+
+                N a m e                 Type
+
+exit . . . . . . . . . . . . . .	Proc
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000137 Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000011 Para	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00001 . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000011 Private STDCALL
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+dispbb . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispbd . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispbw . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispcrlf . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispc  . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disphb . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disphd . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disphw . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispmsg  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disprb . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disprd . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disprf . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+disprw . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispsib  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispsid  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispsiw  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispuib  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispuid  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+dispuiw  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readbb . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readbd . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readbw . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readc  . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readhb . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readhd . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readhw . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readmsg  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readsib  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readsid  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readsiw  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readuib  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readuid  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+readuiw  . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+start  . . . . . . . . . . . . .	L Near	 00000000 _TEXT	Public STDCALL
+table  . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+
+	   0 Warnings
+	   0 Errors

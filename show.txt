@@ -1,0 +1,106 @@
+PS C:\shiyan> show
+Searching for and launching .exe files containing "eg" in the filename...
+
+
+Launching program: "eg0000.exe"
+
+
+Launching program: "eg0101.exe"
+Hello, Assembly!
+
+
+Launching program: "eg0102.exe"
+EAX=9ABCDEF0, EBX=00405000, ECX=00000000, EDX=00401000
+ESI=00000004, EDI=9ABCDEF0, EBP=0019FF78, ESP=0019FF78
+
+
+Launching program: "eg0103.exe"
+91289128
+
+Launching program: "eg0104.exe"
+   | 0 1 2 3 4 5 6 7 8 9 A B C D E F
+ ---+-------------------------------
+ 20|   ! " # $ % & ' ( ) * + , - . /
+ 30| 0 1 2 3 4 5 6 7 8 9 : ; < = > ?
+ 40| @ A B C D E F G H I J K L M N O
+ 50| P Q R S T U V W X Y Z [ \ ] ^ _
+ 60| ` a b c d e f g h i j k l m n o
+ 70| p q r s t u v w x y z { | } ~
+
+
+Launching program: "eg0201.exe"
+0123456789abcxyzABCXYZ
+
+
+Launching program: "eg0202.exe"
+91289128
+
+Launching program: "eg0203.exe"
+EAX=00193412, EBX=0039DEF0, ECX=0000000B, EDX=00401017
+ESI=00405022, EDI=9ABCDEF0, EBP=9ABCDEF0, ESP=0019FF78
+
+
+Launching program: "eg0204.exe"
+   | 0 1 2 3 4 5 6 7 8 9 A B C D E F
+ ---+-------------------------------
+ 20|   ! " # $ % & ' ( ) * + , - . /
+ 30| 0 1 2 3 4 5 6 7 8 9 : ; < = > ?
+ 40| @ A B C D E F G H I J K L M N O
+ 50| P Q R S T U V W X Y Z [ \ ] ^ _
+ 60| ` a b c d e f g h i j k l m n o
+ 70| p q r s t u v w x y z { | } ~
+
+
+Launching program: "eg0205.exe"
+67783000
+
+Launching program: "eg0206.exe"
+WELCOME
+
+Launching program: "eg0301.exe"
+340000
+3400000
+
+Launching program: "eg0302.exe"
+92
+
+Launching program: "eg0303.exe"
+In a major matter, no details are small.
+
+Launching program: "eg0401.exe"
+Ready to go!
+
+Launching program: "eg0402.exe"
+Ready to go!
+
+Launching program: "eg0405.exe"
+ Please input a character: i
+ The ASCII code of the charater you entered is: 01101001
+ The code with even parity is: 01101001
+
+Launching program: "eg0501.exe"
+30
+
+Launching program: "eg0502.exe"
+Let us have a try  ! 
+7
+
+Launching program: "eg0504.exe"
+Max N: 92681
+Max Sum: 4294930221
+
+
+Launching program: "eg0602.exe"
+20 54 68 69 73 20 69 73 20 61 20 74 65 73 74 21 20 
+
+Launching program: "eg0603.exe"
+
+Input error, enter again:6
+
+Input error, enter again:y
+Input error, enter again:5
+
+Input error, enter again:
+Input error, enter again:6
+111111111
+2
