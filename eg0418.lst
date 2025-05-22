@@ -1,4 +1,4 @@
-Microsoft (R) Macro Assembler Version 6.15.8803		    05/19/25 20:57:22
+Microsoft (R) Macro Assembler Version 6.15.8803		    05/22/25 20:25:35
 eg0418.asm						     Page 1 - 1
 
 
@@ -56,7 +56,7 @@ eg0418.asm						     Page 1 - 1
  00000035  C3			    ret
  00000036			mean endp
 				end start
-Microsoft (R) Macro Assembler Version 6.15.8803		    05/19/25 20:57:22
+Microsoft (R) Macro Assembler Version 6.15.8803		    05/22/25 20:25:35
 eg0418.asm						     Symbols 2 - 1
 
 
