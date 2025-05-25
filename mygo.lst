@@ -1,0 +1,145 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    05/26/25 00:42:19
+mygo.asm						     Page 1 - 1
+
+
+				assume cs:codeseg, ds:dataseg, ss:stackseg
+ 0000				dataseg segment
+ 0000 014A 0126 0106 0126	mus_freq    dw  330, 294, 262, 294     ; 3 2 1 2
+ 0008  014A 015D 014A		            dw  330, 349, 330, 294     ; 3.4 3 2.
+       0126
+ 0010  014A 0126 0106		            dw  330, 294, 262, 294     ; 3 2 1 2
+       0126
+ 0018  014A 015D 014A		            dw  330, 349, 330, 294     ; 3.4 3 2.
+       0126
+
+ 0020  014A 0126 0106		            dw  330, 294, 262, 294     ; 3 2 1 2
+       0126
+ 0028  014A 015D 014A		            dw  330, 349, 330, 294     ; 3.4 3 2.
+       0126
+ 0030  014A 0126 0106		            dw  330, 294, 262, 294     ; 3 2 1 2
+       0126
+ 0038  014A 015D 014A		            dw  330, 349, 330, 294 ;3.4 3 2 12
+       0126
+
+				            ; ... 根据简谱补充后续音符频率
+ 0040  FFFF			            dw  -1   ; 结束标志
+ 0042 0018 000C 0018 000C	mus_time    dw  24,12,24,12, 18,6,12,36  ; 3 2 1 2 | 3.4 3 2.
+       0012 0006 000C
+       0024
+ 0052  0018 000C 0018		            dw  24,12,24,12, 18,6,12,36  ; 重复段落
+       000C 0012 0006
+       000C 0024
+ 0062  0018 000C 0018		            dw  24,12,24,12, 18,6,12,36
+       000C 0012 0006
+       000C 0024
+ 0072  0018 000C 0018		            dw  24,12,24,12, 18,6,12,36   ; 最后音符延长
+       000C 0012 0006
+       000C 0024
+				            ; ...（补充剩余时值）
+ 0082				dataseg ends
+
+ 0000				stackseg segment
+ 0000  0100 [			   db 100h dup (0)
+        00
+       ]
+ 0100				stackseg ends
+
+ 0000				codeseg segment
+ 0000				start:
+ 0000  B8 ---- R		    mov ax, stackseg
+mygo.asm(28) : warning A4012: line number information for segment without class 'CODE' : codeseg
+ 0003  8E D0			    mov ss, ax
+ 0005  BC 0100			    mov sp, 100h
+
+ 0008  B8 ---- R		    mov ax, dataseg
+ 000B  8E D8			    mov ds, ax
+
+ 000D  8D 36 0000 R		    lea si, mus_freq
+ 0011  8D 3E 0042 R		    lea di, mus_time
+
+ 0015				play:
+ 0015  8B 14			    mov dx, [si]
+ 0017  83 FA FF			    cmp dx, -1
+ 001A  74 0B			    je end_play
+ 001C  E8 000D			    call sound
+ 001F  83 C6 02			    add si, 2
+ 0022  83 C7 02			    add di, 2
+ 0025  EB EE			    jmp play
+
+ 0027				end_play:
+ 0027  B8 4C00			    mov ax, 4c00h
+ 002A  CD 21			    int 21h
+
+				;演奏一个音符
+				;入口参数：si - 要演奏的音符的频率的地址
+				;         di - 要演奏的音符的音长的地址
+ 002C				sound:
+ 002C  50			    push ax
+ 002D  52			    push dx
+ 002E  51			    push cx
+
+				    ;8253 芯片(定时/计数器)的设置
+ 002F  B0 B6			    mov al,0b6h    ;8253初始化
+ 0031  E6 43			    out 43h,al     ;43H是8253芯片控制口的端口地址
+ 0033  BA 0012			    mov dx,12h
+ 0036  B8 34DC			    mov ax,34dch
+ 0039  F7 34			    div word ptr [si] ;计算分频值,赋给ax。[si]中存放声音的频率值。
+ 003B  E6 42			    out 42h, al       ;先送低8位到计数器，42h是8253芯片通道2的端口地址
+ 003D  8A C4			    mov al, ah
+ 003F  E6 42			    out 42h, al       ;后送高8位计数器
+
+				    ;设置8255芯片, 控制扬声器的开/关
+ 0041  E4 61			    in al,61h   ;读取8255 B端口原值
+ 0043  8A E0			    mov ah,al   ;保存原值
+ 0045  0C 03			    or al,3     ;使低两位置1，以便打开开关
+ 0047  E6 61			    out 61h,al  ;开扬声器, 发声
+
+ 0049  8B 15			    mov dx, [di]       ;保持[di]时长
+ 004B				wait1:
+ 004B  B9 6D60			    mov cx, 28000
+ 004E				delay:
+ 004E  90			    nop
+ 004F  E2 FD			    loop delay
+ 0051  4A			    dec dx
+ 0052  75 F7			    jnz wait1
+
+ 0054  8A C4			    mov al, ah         ;恢复扬声器端口原值
+ 0056  E6 61			    out 61h, al
+
+ 0058  59			    pop cx
+ 0059  5A			    pop dx
+ 005A  58			    pop ax
+ 005B  C3			    ret
+
+ 005C				codeseg ends
+				end start
+Microsoft (R) Macro Assembler Version 6.15.8803		    05/26/25 00:42:19
+mygo.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+codeseg  . . . . . . . . . . . .	16 Bit	 005C	  Para	  Private 
+dataseg  . . . . . . . . . . . .	16 Bit	 0082	  Para	  Private 
+stackseg . . . . . . . . . . . .	16 Bit	 0100	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+delay  . . . . . . . . . . . . .	L Near	 004E	  codeseg	
+end_play . . . . . . . . . . . .	L Near	 0027	  codeseg	
+mus_freq . . . . . . . . . . . .	Word	 0000	  dataseg	
+mus_time . . . . . . . . . . . .	Word	 0042	  dataseg	
+play . . . . . . . . . . . . . .	L Near	 0015	  codeseg	
+sound  . . . . . . . . . . . . .	L Near	 002C	  codeseg	
+start  . . . . . . . . . . . . .	L Near	 0000	  codeseg	
+wait1  . . . . . . . . . . . . .	L Near	 004B	  codeseg	
+
+	   1 Warnings
+	   0 Errors
