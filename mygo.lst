@@ -1,42 +1,229 @@
-Microsoft (R) Macro Assembler Version 6.15.8803		    05/26/25 00:42:19
+Microsoft (R) Macro Assembler Version 6.15.8803		    05/26/25 16:01:59
 mygo.asm						     Page 1 - 1
 
 
+				include io16.inc
+			      C .nolist    ; Do not list following content
+			      C .list
+			      C 
 				assume cs:codeseg, ds:dataseg, ss:stackseg
  0000				dataseg segment
- 0000 014A 0126 0106 0126	mus_freq    dw  330, 294, 262, 294     ; 3 2 1 2
- 0008  014A 015D 014A		            dw  330, 349, 330, 294     ; 3.4 3 2.
-       0126
- 0010  014A 0126 0106		            dw  330, 294, 262, 294     ; 3 2 1 2
-       0126
- 0018  014A 015D 014A		            dw  330, 349, 330, 294     ; 3.4 3 2.
+				;----------- 音符频率表 mus_freq -----------
+ 0000 0293 024B 020C 024B	mus_freq    dw  659, 587, 524, 587     ; 3 2 1 2
+ 0008  0293 02BA 0293		            dw  659, 698, 659, 587     ; 3.4 3 2.
+       024B
+ 0010  0293 024B 020C		            dw  659, 587, 524, 587     ; 3 2 1 2
+       024B
+ 0018  0293 02BA 0293		            dw  659, 698, 659, 587     ; 3.4 3 2.
+       024B
+
+				            ; 重复段落
+ 0020  0293 024B 020C		            dw  659, 587, 524, 587     ; 3 2 1 2
+       024B
+ 0028  0293 02BA 0293		            dw  659, 698, 659, 587     ; 3.4 3 2.
+       024B
+ 0030  0293 024B 020C		            dw  659, 587, 524, 587     ; 3 2 1 2
+       024B
+ 0038  0293 02BA 0293		            dw  659, 698, 659, 587, 262, 294    ; 3.4 3 2. 1 2
+       024B 0106 0126
+
+				            ; 主旋律
+ 0044  014A 014A 0126		            dw  330, 330, 294, 349, 330, 294  ;3 3 2 4 3 2
+       015D 014A 0126
+ 0050  0126 0126 0106		            dw  294, 294, 262, 262           ;2 2 1 1
+       0106
+ 0058  015D 014A 0126		            dw  349, 330, 294                 ;4 3 2
+ 005E  0126 0106 0126		            dw  294, 262, 294, 330            ;2 1 2 3.
+       014A
+
+				            ; 间奏
+ 0066  0000 014A 0188		            dw  0, 330, 392, 523              ;0. 351
+       020B
+ 006E  01EE 020C 01EE		            dw  494, 524, 494, 524            ;7 i 7 i
+       020C
+ 0076  01EE 01B8 0188		            dw  494, 440, 392, 392, 294, 262       ;76 5 524
+       0188 0126 0106
+ 0082  015D 014A 014A		            dw  349, 330, 330, 392            ;4 3 3 5
+       0188
+ 008A  015D 014A 0126		            dw  349, 330, 294, 330, 196            ;432 3 5
+       014A 00C4
+
+				            ; 主歌
+ 0094  0106 0000 0106		            dw  262, 0, 262             ;1. 0 1
+ 009A  0126 0106 0106		            dw  294, 262, 262            ;21.1
+ 00A0  0106 0188 0106		            dw  262, 392, 262                 ;151
+ 00A6  015D 014A 0126		            dw  349, 330, 294, 262            ;4 3 2 1
+       0106
+ 00AE  0106 0000 0106		            dw  262, 0, 262, 294              ;1.0 12
        0126
 
- 0020  014A 0126 0106		            dw  330, 294, 262, 294     ; 3 2 1 2
-       0126
- 0028  014A 015D 014A		            dw  330, 349, 330, 294     ; 3.4 3 2.
-       0126
- 0030  014A 0126 0106		            dw  330, 294, 262, 294     ; 3 2 1 2
-       0126
- 0038  014A 015D 014A		            dw  330, 349, 330, 294 ;3.4 3 2 12
-       0126
+				           ; 主旋律
+ 00B6  014A 014A 0126		            dw  330, 330, 294, 349, 330, 294  ;3 3 2 4 3 2
+       015D 014A 0126
+ 00C2  0126 0126 0106		            dw  294, 294, 262           ;2 2 1
+ 00C8  015D 014A 0126		            dw  349, 330, 294                 ;4 3 2
+ 00CE  0126 0106 0126		            dw  294, 262, 294, 330            ;2 1 2 3.
+       014A
 
-				            ; ... 根据简谱补充后续音符频率
- 0040  FFFF			            dw  -1   ; 结束标志
- 0042 0018 000C 0018 000C	mus_time    dw  24,12,24,12, 18,6,12,36  ; 3 2 1 2 | 3.4 3 2.
+				            ; 间奏
+ 00D6  0000 014A 0188		            dw  0, 330, 392, 523              ;0. 351
+       020B
+ 00DE  01EE 020C 01EE		            dw  494, 524, 494, 524            ;7 i 7 i
+       020C
+ 00E6  01EE 01B8 0188		            dw  494, 440, 392, 392, 294, 262       ;76 5 524
+       0188 0126 0106
+ 00F2  015D 014A 014A		            dw  349, 330, 330, 392            ;4 3 3 5
+       0188
+ 00FA  015D 014A 0126		            dw  349, 330, 294, 330, 196            ;432 3 5
+       014A 00C4
+
+				            ; 副歌
+ 0104  0106 0000 0106		            dw  262, 0, 262, 262              ;1. 0 11
+       0106
+ 010C  0126 0106 0106		            dw  294, 262, 262, 392, 262        ;21 151
+       0188 0106
+ 0116  015D 015D 015D		            dw  349, 349, 349, 330, 294, 294, 262  ;4 4 4 3 2 21
+       014A 0126 0126
+       0106
+ 0124  0106 0000 0000		            dw  262, 0, 0                   ;1.0 0.
+
+				            ; 桥段（完整展开）
+ 012A  0370 0310 0310		            dw  880, 784, 784, 784, 698, 698   ;655 544
+       0310 02BA 02BA
+ 0136  0293 024B 024B		            dw  659, 587, 587, 587, 0, 392          ;322 205
+       024B 0000 0188
+ 0142  0188 015D 015D		            dw  392, 349, 349, 349, 349, 330, 294   ;544 4 432
+       015D 015D 014A
+       0126
+ 0150  0126 0106 00F7		            dw  294, 262, 247, 162, 0               ;217 1.0.
+       00A2 0000
+
+				            ; 重复桥段
+ 015A  0370 0310 0310		            dw  880, 784, 784, 784, 698, 698   ;655 544
+       0310 02BA 02BA
+ 0166  0293 024B 024B		            dw  659, 587, 587, 587, 0, 330          ;322 203
+       024B 0000 014A
+ 0172  014A 014A 014A		            dw  330, 330, 330, 330, 330, 330, 294, 330   ;333 33 323
+       014A 014A 014A
+       0126 014A
+ 0182  024B 020C 020C		            dw  587, 524, 524, 0, 524             ;2 i 101
+       0000 020C
+
+				            ; 尾奏
+ 018C  01EE 01B8 01B8		            dw  494, 440, 440               ;7 6 6.
+ 0192  0000 01B8 01B8		            dw  0, 440, 440, 392, 349, 349          ;0 6 654 4
+       0188 015D 015D
+ 019E  015D 014A 015D		            dw  349, 330, 349, 392             ;4.34 5
+       0188
+ 01A6  0188 0000		            dw  392, 0                      ;5.0.
+ 01AA  FFFF			            dw  -1                             ; 结束标志
+
+				;----------- 音符时值表 mus_time -----------
+ 01AC 0018 000C 0018 000C	mus_time    dw  24,12,24,12, 18,6,12,36      ; 基础节奏
        0012 0006 000C
        0024
- 0052  0018 000C 0018		            dw  24,12,24,12, 18,6,12,36  ; 重复段落
+ 01BC  0018 000C 0018		            dw  24,12,24,12, 18,6,12,36      ; 重复段落
        000C 0012 0006
        000C 0024
- 0062  0018 000C 0018		            dw  24,12,24,12, 18,6,12,36
+ 01CC  0018 000C 0018		            dw  24,12,24,12, 18,6,12,36
        000C 0012 0006
        000C 0024
- 0072  0018 000C 0018		            dw  24,12,24,12, 18,6,12,36   ; 最后音符延长
+ 01DC  0018 000C 0018		            dw  24,12,24,12, 18,6,12,24,6,6
        000C 0012 0006
-       000C 0024
-				            ; ...（补充剩余时值）
- 0082				dataseg ends
+       000C 0018 0006
+       0006
+
+				            ; 主旋律时值
+ 01F0  000C 000C 000C		            dw  12,12,12,12,12,12            ;3 3 2 4 3 2
+       000C 000C 000C
+ 01FC  000C 000C 0006		            dw  12,12,6,6                 ;2 2 1 1
+       0006
+ 0204  000C 000C 000C		            dw  12,12,12                     ;4 3 2
+ 020A  0018 0006 0006		            dw  24,6,6,36                 ;2 1 2 3.
+       0024
+
+				            ; 间奏时值
+ 0212  0024 000C 000C		            dw  36,12,12,12                  ;0.351 (附点)
+       000C
+ 021A  0018 000C 0018		            dw  24,12,24,12                  ;7i7i
+       000C
+ 0222  0006 0006 0018		            dw  6,6,24,12,12,12               ;76 5 524
+       000C 000C 000C
+ 022E  0018 000C 0018		            dw  24,12,24,12                  ;4 3 3 5
+       000C
+ 0236  000C 000C 000C		            dw  12,12,12,24,12                  ;432 3 5
+       0018 000C
+
+				            ; 主歌时值
+ 0240  0024 0018 000C		            dw  36,24,12                  ;1. 0 1
+ 0246  000C 0012 0006		            dw  12,18,6                  ;21.1
+ 024C  000C 000C 000C		            dw  12,12,12                     ;151
+ 0252  0018 000C 0018		            dw  24,12,24,12                  ;4 3 2 1
+       000C
+ 025A  0024 0018 0006		            dw  36,24,6,6                  ;1.0 12
+       0006
+
+				            ; 重复时值（完全展开）
+ 0262  000C 000C 000C		            dw  12,12,12,12,12,12            ;3 3 2 4 3 2
+       000C 000C 000C
+ 026E  000C 000C 000C		            dw  12,12,12                 ;2 2 1
+ 0274  000C 000C 000C		            dw  12,12,12                     ;4 3 2
+ 027A  0018 0006 0006		            dw  24,6,6,36                 ;2 1 2 3.
+       0024
+
+				            ; 间奏时值重复
+ 0282  0024 000C 000C		            dw  36,12,12,12                  ;0.351 (附点)
+       000C
+ 028A  0018 000C 0018		            dw  24,12,24,12                  ;7i7i
+       000C
+ 0292  0006 0006 0018		            dw  6,6,24,12,12,12               ;76 5 524
+       000C 000C 000C
+ 029E  0018 000C 0018		            dw  24,12,24,12                  ;4 3 3 5
+       000C
+ 02A6  000C 000C 000C		            dw  12,12,12,24,12                  ;432 3 5
+       0018 000C
+
+				            ; 副歌时值
+ 02B0  0024 0018 0006		            dw  36,24,6,6                  ;1. 0 11
+       0006
+ 02B8  000C 0018 000C		            dw  12,24,12,12,12               ;21 151
+       000C 000C
+ 02C2  000C 0006 0006		            dw  12,6,6,6,6,24,12            ;4 4 4 3 2 21
+       0006 0006 0018
+       000C
+ 02D0  0012 0012 0024		            dw  18,18,36                  ;1.0 0.
+
+				            ; 桥段时值
+ 02D6  000C 000C 000C		            dw  12,12,12,12,12,12            ;655 544
+       000C 000C 000C
+ 02E2  000C 000C 000C		            dw  12,12,12,12,12,12               ;322 205
+       000C 000C 000C
+ 02EE  000C 0006 0006		            dw  12,6,6,12,12,12,12            ;544 4 432
+       000C 000C 000C
+       000C
+ 02FC  0018 0006 0006		            dw  24,6,6,18,18                  ;217 1.0.
+       0012 0012
+
+				            ; 重复桥段时值
+ 0306  000C 000C 000C		            dw  12,12,12,12,12,12            ;655 544
+       000C 000C 000C
+ 0312  000C 000C 000C		            dw  12,12,12,12,12,12               ;322 203
+       000C 000C 000C
+ 031E  000C 0006 0006		            dw  12,6,6,6,6,12,12,12            ;333 33 323
+       0006 0006 000C
+       000C 000C
+ 032E  0018 000C 000C		            dw  24,12,12,12,12                  ;2 i 101
+       000C 000C
+
+				            ; 尾奏时值
+ 0338  0018 000C 0024		            dw  24,12,36                     ;7 6 6.
+ 033E  0018 000C 000C		            dw  24,12,12,12,6,6               ;0 6 654 4
+       000C 0006 0006
+ 034A  0024 0006 0006		            dw  36,6,6,24                  ;4.34 5
+       0018
+ 0352  0024 0024		            dw  36,36                     ;5.0.
+ 0356  FFFF			            dw  -1                            ; 结束标志
+ 0358				dataseg ends
 
  0000				stackseg segment
  0000  0100 [			   db 100h dup (0)
@@ -47,7 +234,7 @@ mygo.asm						     Page 1 - 1
  0000				codeseg segment
  0000				start:
  0000  B8 ---- R		    mov ax, stackseg
-mygo.asm(28) : warning A4012: line number information for segment without class 'CODE' : codeseg
+mygo.asm(145) : warning A4012: line number information for segment without class 'CODE' : codeseg
  0003  8E D0			    mov ss, ax
  0005  BC 0100			    mov sp, 100h
 
@@ -55,91 +242,176 @@ mygo.asm(28) : warning A4012: line number information for segment without class 
  000B  8E D8			    mov ds, ax
 
  000D  8D 36 0000 R		    lea si, mus_freq
- 0011  8D 3E 0042 R		    lea di, mus_time
+ 0011  8D 3E 01AC R		    lea di, mus_time
 
  0015				play:
  0015  8B 14			    mov dx, [si]
  0017  83 FA FF			    cmp dx, -1
- 001A  74 0B			    je end_play
- 001C  E8 000D			    call sound
- 001F  83 C6 02			    add si, 2
- 0022  83 C7 02			    add di, 2
- 0025  EB EE			    jmp play
+ 001A  74 23			    je end_play
+ 001C  83 FA 00			    cmp dx, 0
+ 001F  74 0B			    je silence
+ 0021  E8 0020			    call sound
+ 0024  83 C6 02			    add si, 2
+ 0027  83 C7 02			    add di, 2
+ 002A  EB E9			    jmp play
 
- 0027				end_play:
- 0027  B8 4C00			    mov ax, 4c00h
- 002A  CD 21			    int 21h
+ 002C				silence:
+				    ;========= 新增扬声器关闭操作 =========
+ 002C  E4 61			    in al, 61h         ; 读取端口状态
+ 002E  24 FC			    and al, 0FCh       ; 清除位0和位1 (11111100b)
+ 0030  E6 61			    out 61h, al        ; 关闭扬声器
+				    ;====================================
+				    
+ 0032  8B 15			    mov dx, [di]       ; 获取静音时长
+ 0034  E8 0037			    call delay         ; 使用统一延时
+				    
+ 0037  83 C6 02			    add si, 2          ; 移动到下一个音符
+ 003A  83 C7 02			    add di, 2
+ 003D  EB D6			    jmp play
+
+ 003F				end_play:
+ 003F  B8 4C00			    mov ax, 4c00h
+ 0042  CD 21			    int 21h
 
 				;演奏一个音符
 				;入口参数：si - 要演奏的音符的频率的地址
 				;         di - 要演奏的音符的音长的地址
- 002C				sound:
- 002C  50			    push ax
- 002D  52			    push dx
- 002E  51			    push cx
+ 0044				sound:
+ 0044  50			    push ax
+ 0045  52			    push dx
+ 0046  51			    push cx
 
-				    ;8253 芯片(定时/计数器)的设置
- 002F  B0 B6			    mov al,0b6h    ;8253初始化
- 0031  E6 43			    out 43h,al     ;43H是8253芯片控制口的端口地址
- 0033  BA 0012			    mov dx,12h
- 0036  B8 34DC			    mov ax,34dch
- 0039  F7 34			    div word ptr [si] ;计算分频值,赋给ax。[si]中存放声音的频率值。
- 003B  E6 42			    out 42h, al       ;先送低8位到计数器，42h是8253芯片通道2的端口地址
- 003D  8A C4			    mov al, ah
- 003F  E6 42			    out 42h, al       ;后送高8位计数器
+				    ; 初始化8253定时器
+ 0047  B0 B6			    mov al, 0B6h
+ 0049  E6 43			    out 43h, al
+ 004B  BA 0012			    mov dx, 12h
+ 004E  B8 34DC			    mov ax, 34DCh
+ 0051  F7 34			    div word ptr [si]
+ 0053  E6 42			    out 42h, al
+ 0055  8A C4			    mov al, ah
+ 0057  E6 42			    out 42h, al
 
-				    ;设置8255芯片, 控制扬声器的开/关
- 0041  E4 61			    in al,61h   ;读取8255 B端口原值
- 0043  8A E0			    mov ah,al   ;保存原值
- 0045  0C 03			    or al,3     ;使低两位置1，以便打开开关
- 0047  E6 61			    out 61h,al  ;开扬声器, 发声
+				    ; 打开扬声器
+ 0059  E4 61			    in al, 61h
+ 005B  8A E0			    mov ah, al
+ 005D  0C 03			    or al, 03h         ; 设置位0和位1
+ 005F  E6 61			    out 61h, al
 
- 0049  8B 15			    mov dx, [di]       ;保持[di]时长
- 004B				wait1:
- 004B  B9 6D60			    mov cx, 28000
- 004E				delay:
- 004E  90			    nop
- 004F  E2 FD			    loop delay
- 0051  4A			    dec dx
- 0052  75 F7			    jnz wait1
+ 0061  8B 15			    mov dx, [di]       ; 获取音符时长
+ 0063  E8 0008			    call delay         ; 调用统一延时
 
- 0054  8A C4			    mov al, ah         ;恢复扬声器端口原值
- 0056  E6 61			    out 61h, al
+				    ; 关闭扬声器
+ 0066  8A C4			    mov al, ah         ; 恢复原始端口状态
+ 0068  E6 61			    out 61h, al
 
- 0058  59			    pop cx
- 0059  5A			    pop dx
- 005A  58			    pop ax
- 005B  C3			    ret
+ 006A  59			    pop cx
+ 006B  5A			    pop dx
+ 006C  58			    pop ax
+ 006D  C3			    ret
 
- 005C				codeseg ends
+ 006E				delay proc
+ 006E  51			    push cx
+ 006F				wait_delay:
+ 006F  B9 5208			    mov cx, 21000      ; 与原有延时基数一致
+ 0072				delay_loop:
+ 0072  90			    nop
+ 0073  E2 FD			    loop delay_loop
+ 0075  4A			    dec dx
+ 0076  75 F7			    jnz wait_delay
+ 0078  59			    pop cx
+ 0079  C3			    ret
+ 007A				delay endp
+
+ 007A				codeseg ends
 				end start
-Microsoft (R) Macro Assembler Version 6.15.8803		    05/26/25 00:42:19
+Microsoft (R) Macro Assembler Version 6.15.8803		    05/26/25 16:01:59
 mygo.asm						     Symbols 2 - 1
 
 
+
+
+Macros:
+
+                N a m e                 Type
+
+exit . . . . . . . . . . . . . .	Proc
 
 
 Segments and Groups:
 
                 N a m e                 Size     Length   Align   Combine Class
 
-codeseg  . . . . . . . . . . . .	16 Bit	 005C	  Para	  Private 
-dataseg  . . . . . . . . . . . .	16 Bit	 0082	  Para	  Private 
+DGROUP . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	16 Bit	 0000	  Word	  Public  'DATA'	
+STACK  . . . . . . . . . . . . .	16 Bit	 0400	  Para	  Stack	  'STACK'	 
+_TEXT  . . . . . . . . . . . . .	16 Bit	 0000	  Word	  Public  'CODE'	
+codeseg  . . . . . . . . . . . .	16 Bit	 007A	  Para	  Private 
+dataseg  . . . . . . . . . . . .	16 Bit	 0358	  Para	  Private 
 stackseg . . . . . . . . . . . .	16 Bit	 0100	  Para	  Private 
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+delay  . . . . . . . . . . . . .	P Near	 006E	  codeseg	Length= 000C Public
+  wait_delay . . . . . . . . . .	L Near	 006F	  codeseg	
+  delay_loop . . . . . . . . . .	L Near	 0072	  codeseg	
 
 
 Symbols:
 
                 N a m e                 Type     Value    Attr
 
-delay  . . . . . . . . . . . . .	L Near	 004E	  codeseg	
-end_play . . . . . . . . . . . .	L Near	 0027	  codeseg	
+@CodeSize  . . . . . . . . . . .	Number	 0000h	 
+@DataSize  . . . . . . . . . . .	Number	 0000h	 
+@Interface . . . . . . . . . . .	Number	 0000h	 
+@Model . . . . . . . . . . . . .	Number	 0002h	 
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 DGROUP
+@fardata?  . . . . . . . . . . .	Text   	 FAR_BSS
+@fardata . . . . . . . . . . . .	Text   	 FAR_DATA
+@stack . . . . . . . . . . . . .	Text   	 DGROUP
+dispbb . . . . . . . . . . . . .	L Near	 0000	  External
+dispbd . . . . . . . . . . . . .	L Near	 0000	  External
+dispbw . . . . . . . . . . . . .	L Near	 0000	  External
+dispcrlf . . . . . . . . . . . .	L Near	 0000	  External
+dispc  . . . . . . . . . . . . .	L Near	 0000	  External
+disphb . . . . . . . . . . . . .	L Near	 0000	  External
+disphd . . . . . . . . . . . . .	L Near	 0000	  External
+disphw . . . . . . . . . . . . .	L Near	 0000	  External
+dispmsg  . . . . . . . . . . . .	L Near	 0000	  External
+disprb . . . . . . . . . . . . .	L Near	 0000	  External
+disprd . . . . . . . . . . . . .	L Near	 0000	  External
+disprf . . . . . . . . . . . . .	L Near	 0000	  External
+disprw . . . . . . . . . . . . .	L Near	 0000	  External
+dispsib  . . . . . . . . . . . .	L Near	 0000	  External
+dispsid  . . . . . . . . . . . .	L Near	 0000	  External
+dispsiw  . . . . . . . . . . . .	L Near	 0000	  External
+dispuib  . . . . . . . . . . . .	L Near	 0000	  External
+dispuid  . . . . . . . . . . . .	L Near	 0000	  External
+dispuiw  . . . . . . . . . . . .	L Near	 0000	  External
+end_play . . . . . . . . . . . .	L Near	 003F	  codeseg	
 mus_freq . . . . . . . . . . . .	Word	 0000	  dataseg	
-mus_time . . . . . . . . . . . .	Word	 0042	  dataseg	
+mus_time . . . . . . . . . . . .	Word	 01AC	  dataseg	
 play . . . . . . . . . . . . . .	L Near	 0015	  codeseg	
-sound  . . . . . . . . . . . . .	L Near	 002C	  codeseg	
+readbb . . . . . . . . . . . . .	L Near	 0000	  External
+readbd . . . . . . . . . . . . .	L Near	 0000	  External
+readbw . . . . . . . . . . . . .	L Near	 0000	  External
+readc  . . . . . . . . . . . . .	L Near	 0000	  External
+readhb . . . . . . . . . . . . .	L Near	 0000	  External
+readhd . . . . . . . . . . . . .	L Near	 0000	  External
+readhw . . . . . . . . . . . . .	L Near	 0000	  External
+readmsg  . . . . . . . . . . . .	L Near	 0000	  External
+readsib  . . . . . . . . . . . .	L Near	 0000	  External
+readsid  . . . . . . . . . . . .	L Near	 0000	  External
+readsiw  . . . . . . . . . . . .	L Near	 0000	  External
+readuib  . . . . . . . . . . . .	L Near	 0000	  External
+readuid  . . . . . . . . . . . .	L Near	 0000	  External
+readuiw  . . . . . . . . . . . .	L Near	 0000	  External
+silence  . . . . . . . . . . . .	L Near	 002C	  codeseg	
+sound  . . . . . . . . . . . . .	L Near	 0044	  codeseg	
 start  . . . . . . . . . . . . .	L Near	 0000	  codeseg	
-wait1  . . . . . . . . . . . . .	L Near	 004B	  codeseg	
 
 	   1 Warnings
 	   0 Errors
